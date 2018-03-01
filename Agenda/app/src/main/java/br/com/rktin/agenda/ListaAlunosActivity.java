@@ -78,8 +78,17 @@ public class ListaAlunosActivity extends AppCompatActivity {
         final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
 
         MenuItem ligar = menu.add("Ligar");
+
+
         MenuItem sms = menu.add("Sms");
-        MenuItem vaiProMapa = menu.add("Vai Para Mapa");
+        Intent intentSMS = new Intent(Intent.ACTION_VIEW);
+        intentSMS.setData(Uri.parse("sms" + aluno.getTelefone()));
+        sms.setIntent(intentSMS);
+
+        MenuItem mapa = menu.add("Mapa");
+        Intent intentMAPA = new Intent(Intent.ACTION_VIEW);
+        intentMAPA.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
+        mapa.setIntent(intentMAPA);
 
         MenuItem irParaSite = menu.add("Ir Para Site");
         Intent intentSite = new Intent(Intent.ACTION_VIEW);
