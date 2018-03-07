@@ -18,7 +18,7 @@ import br.com.rktin.agenda.modelo.Aluno;
 
 public class AlunoDAO extends SQLiteOpenHelper {
     public AlunoDAO(Context context) {
-        super(context, "Alunos", null, 1);
+        super(context, "Alunos", null, 2);
     }
 
     @Override
