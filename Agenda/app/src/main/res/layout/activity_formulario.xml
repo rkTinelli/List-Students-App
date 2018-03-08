@@ -17,7 +17,7 @@
             android:layout_height="225dp">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/botao_camera"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_alignParentBottom="true"
@@ -27,8 +27,8 @@
                 android:text="" />
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:id="@+id/formulario_foto"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="#00A8EC"
                 app:srcCompat="@drawable/person" />
