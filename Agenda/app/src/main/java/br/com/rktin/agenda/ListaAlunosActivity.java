@@ -1,7 +1,11 @@
 package br.com.rktin.agenda;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -77,30 +81,52 @@ public class ListaAlunosActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(info.position);
 
+        //fazer uma ligação
         MenuItem ligar = menu.add("Ligar");
+        ligar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(ActivityCompat.checkSelfPermission(ListaAlunosActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ListaAlunosActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 123);
+                } else {
+                    Intent intentLigar = new Intent(Intent.ACTION_CALL);
+                    intentLigar.setData(Uri.parse("tel:" + aluno.getTelefone()));
+                    startActivity(intentLigar);
+                }
+                return false;
+            }
+        });
 
 
+        //Mandar mensagem SMS
         MenuItem sms = menu.add("Sms");
         Intent intentSMS = new Intent(Intent.ACTION_VIEW);
         intentSMS.setData(Uri.parse("sms" + aluno.getTelefone()));
         sms.setIntent(intentSMS);
 
+
+        //acessar localização no mapa
         MenuItem mapa = menu.add("Mapa");
         Intent intentMAPA = new Intent(Intent.ACTION_VIEW);
         intentMAPA.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
         mapa.setIntent(intentMAPA);
 
+
+        //Acessar o site cadastrado
         MenuItem irParaSite = menu.add("Ir Para Site");
         Intent intentSite = new Intent(Intent.ACTION_VIEW);
 
-        String site = aluno.getSite();
-        if(!site.startsWith("http://")) {
-            site = "http://" + site;
-        }
+            //verificação do site
+            String site = aluno.getSite();
+            if(!site.startsWith("http://")) {
+                site = "http://" + site;
+            }
 
         intentSite.setData(Uri.parse(site));
         irParaSite.setIntent(intentSite);
 
+
+        //deletar aluno
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
