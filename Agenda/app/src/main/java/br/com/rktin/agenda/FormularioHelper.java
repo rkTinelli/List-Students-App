@@ -1,6 +1,9 @@
 package br.com.rktin.agenda;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import br.com.rktin.agenda.modelo.Aluno;
@@ -16,6 +19,7 @@ public class FormularioHelper {
     private EditText campoTelefone;
     private EditText campoSite;
     private RatingBar campoNota;
+    private final ImageView campoFoto;
 
     private Aluno aluno;
 
@@ -26,6 +30,7 @@ public class FormularioHelper {
         campoTelefone = (EditText) activity.findViewById(R.id.formulario_telefone);
         campoSite = (EditText) activity.findViewById(R.id.formulario_site);
         campoNota = (RatingBar) activity.findViewById(R.id.formulario_nota);
+        campoFoto = activity.findViewById(R.id.formulario_foto);
     }
 
     public Aluno pegaAluno() {
@@ -35,6 +40,7 @@ public class FormularioHelper {
         aluno.setTelefone(campoTelefone.getText().toString());
         aluno.setSite(campoSite.getText().toString());
         aluno.setNota(Double.valueOf(campoNota.getProgress()));
+        aluno.setCaminhoFoto((String) campoFoto.getTag());
         return aluno;
     }
 
@@ -44,6 +50,17 @@ public class FormularioHelper {
         campoTelefone.setText(aluno.getTelefone());
         campoSite.setText(aluno.getSite());
         campoNota.setProgress((int) aluno.getNota());
+        carregaImagem(aluno.getCaminhoFoto());
         this.aluno = aluno;
+    }
+
+    public void carregaImagem(String caminhoFoto) {
+        if(caminhoFoto!=null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 200, 200, true);
+            campoFoto.setImageBitmap(bitmapReduzido);
+            campoFoto.setScaleType(ImageView.ScaleType.FIT_XY);
+            campoFoto.setTag(caminhoFoto);
+        }
     }
 }

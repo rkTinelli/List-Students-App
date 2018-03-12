@@ -63,11 +63,7 @@ public class FormularioActivity extends AppCompatActivity {
 
         if (resultCode == Activity.RESULT_OK){
             if(requestCode == codigoCamera){
-                ImageView foto = (ImageView) findViewById(R.id.formulario_foto);
-                Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
-                Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap,200,200, true) ;
-                foto.setImageBitmap(bitmapReduzido);
-                foto.setScaleType(ImageView.ScaleType.FIT_XY);
+                helper.carregaImagem(caminhoFoto);
             }
         }
 
