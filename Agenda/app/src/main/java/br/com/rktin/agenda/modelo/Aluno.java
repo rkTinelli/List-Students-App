@@ -1,5 +1,7 @@
 package br.com.rktin.agenda.modelo;
 
+import android.widget.ImageView;
+
 import java.io.Serializable;
 
 /**
@@ -13,7 +15,7 @@ public class Aluno implements Serializable{
     private String telefone;
     private String site;
     private double nota;
-
+    private String caminhoFoto;
 
         public Long getId() {
             return Id;
@@ -61,6 +63,14 @@ public class Aluno implements Serializable{
 
         public void setNota(double nota) {
             this.nota = nota;
+        }
+
+        public String getCaminhoFoto() {
+            return caminhoFoto;
+        }
+
+        public void setCaminhoFoto(String caminhoFoto) {
+            this.caminhoFoto = caminhoFoto;
         }
 
     @Override

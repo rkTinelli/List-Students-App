@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.rktin.agenda.adapter.AlunosAdapter;
 import br.com.rktin.agenda.dao.AlunoDAO;
 import br.com.rktin.agenda.modelo.Aluno;
 
@@ -70,8 +71,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
         List<Aluno> alunos = dao.buscaAlunos();
         dao.close();
         //instanciando o DAO e busca os alunos
-        
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunos);
+
+        AlunosAdapter adapter = new AlunosAdapter(this, alunos);
+        //ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunos);
         listaAlunos.setAdapter(adapter);
     }
 
@@ -101,7 +103,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         //Mandar mensagem SMS
         MenuItem sms = menu.add("Sms");
         Intent intentSMS = new Intent(Intent.ACTION_VIEW);
-        intentSMS.setData(Uri.parse("sms" + aluno.getTelefone()));
+        intentSMS.setData(Uri.parse("sms:" + aluno.getTelefone()));
         sms.setIntent(intentSMS);
 
 
