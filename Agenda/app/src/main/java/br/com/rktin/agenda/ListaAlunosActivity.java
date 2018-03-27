@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.util.List;
 import br.com.rktin.agenda.adapter.AlunosAdapter;
 import br.com.rktin.agenda.dao.AlunoDAO;
 import br.com.rktin.agenda.modelo.Aluno;
+import br.com.rktin.converter.AlunoConverter;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
@@ -75,6 +77,24 @@ public class ListaAlunosActivity extends AppCompatActivity {
         AlunosAdapter adapter = new AlunosAdapter(this, alunos);
         //ArrayAdapter<Aluno> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunos);
         listaAlunos.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_lista_alunos, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.menu_enviar_notas:
+                new EnviaAlunos(this).execute();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

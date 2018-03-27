@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_formulario_ok"
-        android:title="Ok"
-        android:icon="@drawable/ic_confirmar"
+        android:id="@+id/menu_enviar_notas"
+        android:title="Enviar Notas"
+        android:icon="@drawable/ic_enviar"
         app:showAsAction="always"/>
 </menu>
